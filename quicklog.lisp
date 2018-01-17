@@ -1,0 +1,6 @@
+(when (boundp '*custom-log-file-name*)
+  (require :cl-log)
+  (setf (cl-log:log-manager) (make-instance 'cl-log:log-manager :message-class 'cl-log:formatted-message))
+  (cl-log:start-messenger 'cl-log:text-file-messenger :filename *custom-log-file-name*)
+  (defun quicklog (fmt &rest args)
+    (cl-log:log-message :info (apply 'format nil fmt args))))

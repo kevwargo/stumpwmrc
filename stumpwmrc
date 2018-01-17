@@ -1,0 +1,26 @@
+(in-package :stumpwm)
+
+(setq *debug-level* 5)
+
+(redirect-all-output (data-dir-file "debug-output" "txt"))
+
+(run-shell-command "xscreensaver -no-splash")
+
+
+(load (merge-pathnames "custom.lisp"           *load-truename*))
+
+(load (merge-pathnames "swank.lisp"            *load-truename*))
+(load (merge-pathnames "cyrillic.lisp"         *load-truename*))
+(load (merge-pathnames "keys.lisp"             *load-truename*))
+(load (merge-pathnames "klipper.lisp"          *load-truename*))
+(load (merge-pathnames "mode-line.lisp"        *load-truename*))
+;; (load (merge-pathnames "quicklog.lisp"         *load-truename*))
+(load (merge-pathnames "screenshot.lisp"       *load-truename*))
+(load (merge-pathnames "vars.lisp"             *load-truename*))
+(load (merge-pathnames "window-misc.lisp"      *load-truename*))
+(load (merge-pathnames "window-predicate.lisp" *load-truename*))
+
+(let ((xmodmap (merge-pathnames "xmodmap/xmodmap.lisp"  *load-truename*)))
+  (dformat 3 "XMODMAP FILE: ~A" xmodmap)
+  (load xmodmap))
+

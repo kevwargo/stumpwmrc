@@ -19,8 +19,5 @@
 (load (merge-pathnames "vars.lisp"             *load-truename*))
 (load (merge-pathnames "window-misc.lisp"      *load-truename*))
 (load (merge-pathnames "window-predicate.lisp" *load-truename*))
-
-(let ((xmodmap (merge-pathnames "xmodmap/xmodmap.lisp"  *load-truename*)))
-  (dformat 3 "XMODMAP FILE: ~A" xmodmap)
-  (load xmodmap))
+(load (merge-pathnames "xmodmap/xmodmap.lisp"  *load-truename*))
 

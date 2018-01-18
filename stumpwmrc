@@ -1,6 +1,6 @@
 (in-package :stumpwm)
 
-(setq *debug-level* 5)
+(setq *debug-level* 0)
 
 (redirect-all-output (data-dir-file "debug-output" "txt"))
 

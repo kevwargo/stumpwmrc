@@ -3,4 +3,8 @@
                        :direction :output
                        :if-exists :append
                        :if-does-not-exist :create)
-    (apply 'format log (concat fmt "~%") args)))
+    (multiple-value-bind (s min h d m y) (decode-universal-time (get-universal-time))
+      (apply 'format log
+             (concat "~2,'0d-~2,'0d-~2,'0d ~2,'0d:~2,'0d:~2,'0d " fmt "~%")
+             y m d h min s
+             args))))

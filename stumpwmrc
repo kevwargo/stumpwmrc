@@ -18,6 +18,6 @@
 (load (merge-pathnames "screenshot.lisp"       *load-truename*))
 (load (merge-pathnames "vars.lisp"             *load-truename*))
 (load (merge-pathnames "window-misc.lisp"      *load-truename*))
-(load (merge-pathnames "window-predicate.lisp" *load-truename*))
+(load (merge-pathnames "window-match.lisp"     *load-truename*))
 (load (merge-pathnames "xmodmap/xmodmap.lisp"  *load-truename*))
 

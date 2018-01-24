@@ -25,10 +25,8 @@
 (define-key *top-map* (kbd "H-_") "vsplit")
 
 (define-key *root-map* (kbd "e") "exec emacsclient -c -a ''")
-(define-key *root-map* (kbd "c") "exec /mnt/develop/my/cpp/konsole/build/src/konsole")
 (define-key *root-map* (kbd "t") "exec xterm")
 (define-key *root-map* (kbd "k") "exec krusader")
-(define-key *root-map* (kbd "g") "exec google-chrome-stable")
 (define-key *root-map* (kbd "L") "loadrc")
 
 (when (boundp '*custom-keys*)

@@ -1,4 +1,6 @@
-(defcommand screenshot () ()
+(defcommand screenshot
+    (&optional window)
+    (:string)
   (let* ((dir "/mnt/other/screens")
          (screen-number
           (1+ (apply 'max
@@ -11,6 +13,14 @@
                                     :junk-allowed t))
                                  (directory (concat dir "/screen*.png")))
                          (list 0))))))
-    (run-shell-command (format nil "mkdir -p ~a && import -window root ~a/screen~5,'0d.png" dir dir screen-number))))
+    (run-shell-command (format nil
+                               "mkdir -p ~A && import ~A ~A/screen~5,'0d.png"
+                               dir
+                               (if window
+                                   (concat "-window " window)
+                                   "")
+                               dir
+                               screen-number))))
 
-(define-key *top-map* (kbd "SunPrint_Screen") "screenshot")
+(define-key *top-map* (kbd "SunPrint_Screen") "screenshot root")
+(define-key *top-map* (kbd "H-SunPrint_Screen") "screenshot")

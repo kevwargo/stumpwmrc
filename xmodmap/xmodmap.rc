@@ -233,6 +233,6 @@ keycode 250 = Cyrillic_shcha Cyrillic_SHCHA Cyrillic_shcha Cyrillic_SHCHA
 keycode 251 = Cyrillic_hardsign Cyrillic_HARDSIGN Cyrillic_hardsign Cyrillic_HARDSIGN
 keycode 252 = Ukrainian_yi Ukrainian_YI Ukrainian_yi Ukrainian_YI
 keycode 253 = Ukrainian_ie Ukrainian_IE Ukrainian_ie Ukrainian_IE
-keycode 254 =
+keycode 254 = lcaron Lcaron lcaron Lcaron
 keycode 255 =
 

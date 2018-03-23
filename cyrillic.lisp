@@ -29,6 +29,8 @@
 (setf (gethash "Ukrainian_YI" *additional-cyrillic*) '(252 . 1))
 (setf (gethash "Ukrainian_ie" *additional-cyrillic*) '(253 . 0))
 (setf (gethash "Ukrainian_IE" *additional-cyrillic*) '(253 . 1))
+(setf (gethash "lcaron" *additional-cyrillic*) '(254 . 0))
+(setf (gethash "Lcaron" *additional-cyrillic*) '(254 . 1))
 
 (define-key *top-map* (kbd "s-quoteleft") "window-send-raw-keycode Cyrillic_io")
 (define-key *top-map* (kbd "s-~") "window-send-raw-keycode Cyrillic_IO")
@@ -44,3 +46,5 @@
 (define-key *top-map* (kbd "s-\"") "window-send-raw-keycode Ukrainian_IE")
 (define-key *top-map* (kbd "s-s") "window-send-raw-keycode Ukrainian_yi")
 (define-key *top-map* (kbd "s-S") "window-send-raw-keycode Ukrainian_YI")
+(define-key *top-map* (kbd "s-l") "window-send-raw-keycode lcaron")
+(define-key *top-map* (kbd "s-L") "window-send-raw-keycode Lcaron")

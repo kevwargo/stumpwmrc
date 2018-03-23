@@ -71,12 +71,23 @@
 (define-window-match gwenview (w)
   (classed-p w "org.kde.gwenview"))
 
+(define-window-match imv (w)
+  (classed-p w "imv"))
+
+(define-window-match lyx (w)
+  (classed-p w "lyx"))
+
+(define-window-match android-studio (w)
+  (classed-p w "jetbrains-studio"))
+
 (define-key *top-map* (kbd "H-f") "select-window-by-match CHROME")
 (define-key *top-map* (kbd "H-e") "select-window-by-match EMACS")
 (define-key *top-map* (kbd "H-c") "select-window-by-match KONSOLE")
-(define-key *top-map* (kbd "H-s") "select-window-by-match SKYPE")
 (define-key *top-map* (kbd "H-z") "select-window-by-match CONKY")
 (define-key *top-map* (kbd "H-d") "select-window-by-match KRUSADER")
 (define-key *top-map* (kbd "H-r") "select-window-by-match OKULAR")
 (define-key *top-map* (kbd "H-w") "select-window-by-match WIRESHARK")
 (define-key *top-map* (kbd "H-g") "select-window-by-match GWENVIEW")
+(define-key *top-map* (kbd "H-i") "select-window-by-match IMV")
+(define-key *top-map* (kbd "H-s") "select-window-by-match LYX")
+(define-key *top-map* (kbd "H-A") "select-window-by-match ANDROID-STUDIO")

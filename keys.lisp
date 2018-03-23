@@ -7,6 +7,7 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -c 0 set Master 2%+")
 (define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
 (define-key *top-map* (kbd "XF86PowerOff") "exec sudo pm-suspend & xscreensaver-command -lock")
+(define-key *top-map* (kbd "C-XF86PowerOff") "exec sudo pm-suspend")
 
 (define-key *top-map* (kbd "H-D") "exec xterm -e mocp")
 (define-key *top-map* (kbd "H-a") "exec xterm -e alsamixer -c 0")

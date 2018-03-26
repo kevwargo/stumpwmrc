@@ -1,0 +1,3 @@
+[submodule "konsole"]
+	path = konsole
+	url = git@github.com:kevwargo/konsole

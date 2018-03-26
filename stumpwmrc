@@ -7,7 +7,10 @@
 (run-shell-command "xscreensaver -no-splash")
 
 
-(load (merge-pathnames "custom.lisp"           *load-truename*))
+(let ((custom-file (probe-file (merge-pathnames "custom.lisp" *load-truename*))))
+  (if custom-file
+      (load custom-file)
+      (message "WARNING: no custom.lisp file")))
 
 (load (merge-pathnames "swank.lisp"            *load-truename*))
 (load (merge-pathnames "cyrillic.lisp"         *load-truename*))

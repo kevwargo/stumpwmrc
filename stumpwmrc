@@ -1,17 +1,7 @@
 (in-package :stumpwm)
 
-(setq *debug-level* 0)
-
-(redirect-all-output (data-dir-file "debug-output" "txt"))
-
-(run-shell-command "xscreensaver -no-splash")
-
-
-(let ((custom-file (probe-file (merge-pathnames "custom.lisp" *load-truename*))))
-  (if custom-file
-      (load custom-file)
-      (message "WARNING: no custom.lisp file")))
-
+(load (merge-pathnames "init.lisp"             *load-truename*))
+(load (merge-pathnames "load-custom.lisp"      *load-truename*))
 (load (merge-pathnames "swank.lisp"            *load-truename*))
 (load (merge-pathnames "cyrillic.lisp"         *load-truename*))
 (load (merge-pathnames "keys.lisp"             *load-truename*))

@@ -42,7 +42,7 @@
          (make-instance 'window-match
                         :name ',name
                         :var ',var
-                        :cmd ',cmd
+                        :cmd ,cmd
                         :body ',body)))
 
 (defcommand select-window-by-match
@@ -58,7 +58,7 @@
   (classed-p w "Google-chrome"))
 (define-window-match firefox (w)
   (classed-p w "Firefox"))
-(define-window-match konsole (w "/mnt/develop/my/cpp/konsole/build/src/konsole")
+(define-window-match konsole (w (in-stumpwmrc "konsole.sh"))
   (classed-p w "konsole"))
 (define-window-match krusader (w "krusader")
   (classed-p w "Krusader"))

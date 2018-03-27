@@ -77,7 +77,7 @@
 (define-window-match lyx (w)
   (classed-p w "lyx"))
 
-(define-window-match android-studio (w)
+(define-window-match android-studio (w "/mnt/develop/sdk/android-studio/bin/studio.sh")
   (classed-p w "jetbrains-studio"))
 
 (define-key *top-map* (kbd "H-f") "select-window-by-match CHROME")

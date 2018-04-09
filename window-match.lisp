@@ -77,6 +77,23 @@
 (define-window-match lyx (w)
   (classed-p w "lyx"))
 
+(defun command-matches-p (w cmd)
+  (string= (concatenate 'string
+                        (mapcar
+                         (lambda (x)
+                           (code-char (if (= x 0) 32 x)))
+                         (let ((prop (window-property w :WM_COMMAND)))
+                           (if (null prop)
+                               (quicklog "Window ~a has no WM_COMMAND property set." (window-id w)))
+                           prop)))
+           cmd))
+
+(define-window-match mocp (w "xterm -e mocp")
+  (command-matches-p w "xterm -e mocp "))
+
+(define-window-match htop (w "sudo xterm -e htop")
+  (command-matches-p w "xterm -e htop "))
+
 (define-window-match android-studio (w "/mnt/develop/sdk/android-studio/bin/studio.sh")
   (classed-p w "jetbrains-studio"))
 
@@ -91,3 +108,5 @@
 (define-key *top-map* (kbd "H-i") "select-window-by-match IMV")
 (define-key *top-map* (kbd "H-s") "select-window-by-match LYX")
 (define-key *top-map* (kbd "H-A") "select-window-by-match ANDROID-STUDIO")
+(define-key *top-map* (kbd "H-D") "select-window-by-match MOCP")
+(define-key *top-map* (kbd "H-x") "select-window-by-match HTOP")

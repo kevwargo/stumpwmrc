@@ -9,9 +9,7 @@
 (define-key *top-map* (kbd "XF86PowerOff") "exec sudo pm-suspend & xscreensaver-command -lock")
 (define-key *top-map* (kbd "C-XF86PowerOff") "exec sudo pm-suspend")
 
-(define-key *top-map* (kbd "H-D") "exec xterm -e mocp")
 (define-key *top-map* (kbd "H-a") "exec xterm -e alsamixer -c 0")
-(define-key *top-map* (kbd "H-x") "exec sudo xterm -e htop")
 (define-key *top-map* (kbd "H-C") "exec kcalc")
 (define-key *top-map* (kbd "H-l") "exec xscreensaver-command -lock")
 

@@ -5,7 +5,8 @@
    (var :initarg :var :reader window-match-var)
    (body :initarg :body :reader window-match-body)
    (cmd :initarg :cmd :initform nil :reader window-match-cmd)
-   (queue :initform nil :accessor window-match-queue)))
+   (queue :initform nil :accessor window-match-queue)
+   (autostart :initarg :autostart :initform nil :accessor window-match-autostart-p)))
 
 (defmethod window-match-select ((match window-match))
   (let* ((var (window-match-var match))
@@ -34,16 +35,19 @@
              (append (cdr queue) (list (car queue))))
        (group-focus-window (current-group) w))
       ((setq cmd (window-match-cmd match))
-       (when (y-or-n-p (format nil "No window that matches ~A.~%Do you want to run ~A? " (window-match-name match) cmd))
+       (when (or
+              (window-match-autostart-p match)
+              (y-or-n-p (format nil "No window that matches ~A.~%Do you want to run ~A? " (window-match-name match) cmd)))
          (run-shell-command cmd))))))
 
-(defmacro define-window-match (name (var &optional cmd) &rest body)
+(defmacro define-window-match (name (var &optional cmd autostart) &rest body)
   `(setf (gethash ,(if (stringp name) name (format nil "~A" name)) *window-match-hash*)
          (make-instance 'window-match
                         :name ',name
                         :var ',var
                         :cmd ,cmd
-                        :body ',body)))
+                        :body ',body
+                        :autostart ,autostart)))
 
 (defcommand select-window-by-match
     (name)
@@ -64,7 +68,7 @@
   (classed-p w "Krusader"))
 (define-window-match wireshark (w "sudo wireshark")
   (classed-p w "Wireshark"))
-(define-window-match conky (w "conky")
+(define-window-match conky (w "conky" t)
   (classed-p w "Conky"))
 (define-window-match okular (w)
   (classed-p w "Okular"))
@@ -88,16 +92,17 @@
                            prop)))
            cmd))
 
-(define-window-match mocp (w "xterm -e mocp")
+(define-window-match mocp (w "xterm -e mocp" t)
   (command-matches-p w "xterm -e mocp "))
 
-(define-window-match htop (w "sudo xterm -e htop")
+(define-window-match htop (w "sudo xterm -e htop" t)
   (command-matches-p w "xterm -e htop "))
 
 (define-window-match android-studio (w "/mnt/develop/sdk/android-studio/bin/studio.sh")
   (classed-p w "jetbrains-studio"))
 
 (define-key *top-map* (kbd "H-f") "select-window-by-match CHROME")
+(define-key *top-map* (kbd "H-F") "select-window-by-match FIREFOX")
 (define-key *top-map* (kbd "H-e") "select-window-by-match EMACS")
 (define-key *top-map* (kbd "H-c") "select-window-by-match KONSOLE")
 (define-key *top-map* (kbd "H-z") "select-window-by-match CONKY")

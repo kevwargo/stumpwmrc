@@ -84,6 +84,9 @@
 (define-window-match ricoh-emulator (w)
   (classed-p w "jp-co-ricoh-dsdk-emulator-Emulator"))
 
+(define-window-match dbeaver (w)
+  (classed-p w "DBeaver"))
+
 (defun command-matches-p (w cmd)
   (string= (concatenate 'string
                         (mapcar
@@ -119,3 +122,4 @@
 (define-key *top-map* (kbd "H-D") "select-window-by-match MOCP")
 (define-key *top-map* (kbd "H-x") "select-window-by-match HTOP")
 (define-key *top-map* (kbd "H-R") "select-window-by-match RICOH-EMULATOR")
+(define-key *top-map* (kbd "H-b") "select-window-by-match DBEAVER")

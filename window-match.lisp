@@ -84,7 +84,7 @@
 (define-window-match ricoh-emulator (w)
   (classed-p w "jp-co-ricoh-dsdk-emulator-Emulator"))
 
-(define-window-match dbeaver (w)
+(define-window-match dbeaver (w "/mnt/develop/soft/installed/dbeaver/dbeaver")
   (classed-p w "DBeaver"))
 
 (defun command-matches-p (w cmd)

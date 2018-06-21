@@ -10,6 +10,7 @@
 (load (merge-pathnames "quicklog.lisp"         *load-truename*))
 (load (merge-pathnames "screenshot.lisp"       *load-truename*))
 (load (merge-pathnames "vars.lisp"             *load-truename*))
+(load (merge-pathnames "utils.lisp"            *load-truename*))
 (load (merge-pathnames "window-misc.lisp"      *load-truename*))
 (load (merge-pathnames "window-match.lisp"     *load-truename*))
 (load (merge-pathnames "fonts.lisp"            *load-truename*))

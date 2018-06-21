@@ -37,7 +37,7 @@
       ((setq cmd (window-match-cmd match))
        (when (or
               (window-match-autostart-p match)
-              (y-or-n-p (format nil "No window that matches ~A.~%Do you want to run ~A? " (window-match-name match) cmd)))
+              (smart-y-or-n-p (format nil "No window that matches ~A.~%Do you want to run ~A? " (window-match-name match) cmd)))
          (run-shell-command cmd))))))
 
 (defmacro define-window-match (name (var &optional cmd autostart) &rest body)

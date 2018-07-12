@@ -1,6 +1,6 @@
 (setf *time-modeline-string* "%Y-%m-%d %H:%M:%S")
 (setf *screen-mode-line-format*
-      (list "%d"))
+      (list "%d %H"))
 (setf *mode-line-position* :bottom)
 (setf *mode-line-border-width* 10)
 (setf *mode-line-border-color* "Gray20")
@@ -38,6 +38,13 @@
     ;; "asdf"))
 
 (add-screen-mode-line-formatter #\A 'amixer-get-master-volume)
+
+(defun mode-line-head-show (ml)
+  (format nil "~a" (if (eq (mode-line-head ml)
+                           (group-current-head (screen-current-group (current-screen))))
+                       "^43CUR^*"
+                       "")))
+(add-screen-mode-line-formatter #\H 'mode-line-head-show)
 
 (define-key *root-map* (kbd "m") "mode-line-all-heads-on")
 (define-key *root-map* (kbd "M") "mode-line-all-heads-off")

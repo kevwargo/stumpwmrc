@@ -101,7 +101,7 @@
 (define-window-match mocp (w "xterm -e mocp" t)
   (command-matches-p w "xterm -e mocp "))
 
-(define-window-match htop (w "sudo xterm -e htop" t)
+(define-window-match htop (w "xterm -e htop" t)
   (command-matches-p w "xterm -e htop "))
 
 (define-window-match android-studio (w "/mnt/develop/sdk/android-studio/bin/studio.sh")

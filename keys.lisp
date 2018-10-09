@@ -10,12 +10,12 @@
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer -c 0 set Master 2%-")
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer -c 0 set Master 2%+")
 (define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
-(define-key *top-map* (kbd "XF86PowerOff") "exec sudo pm-suspend & xscreensaver-command -lock")
+(define-key *top-map* (kbd "XF86PowerOff") "exec sudo pm-suspend & slock")
 (define-key *top-map* (kbd "C-XF86PowerOff") "exec sudo pm-suspend")
 
 (define-key *top-map* (kbd "H-a") "exec xterm -e alsamixer -c 0")
 (define-key *top-map* (kbd "H-C") "exec kcalc")
-(define-key *top-map* (kbd "H-l") "exec xscreensaver-command -lock")
+(define-key *top-map* (kbd "H-l") "exec slock")
 
 (define-key *top-map* (kbd "s-SPC") "next-in-frame")
 (define-key *top-map* (kbd "M-s-SPC") "prev-in-frame")

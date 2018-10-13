@@ -12,6 +12,7 @@
 (define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
 (define-key *top-map* (kbd "XF86PowerOff") "exec sudo pm-suspend & slock")
 (define-key *top-map* (kbd "C-XF86PowerOff") "exec sudo pm-suspend")
+(define-key *root-map* (kbd "C-L") "exec slock & sudo /usr/sbin/pm-suspend")
 
 (define-key *top-map* (kbd "H-a") "exec xterm -e alsamixer -c 0")
 (define-key *top-map* (kbd "H-C") "exec kcalc")

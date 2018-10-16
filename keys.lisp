@@ -35,4 +35,4 @@
 
 (when (boundp '*custom-keys*)
   (loop for key-def in *custom-keys* do
-       (eval `(define-key ,@key-def))))
+       (apply 'define-key key-def)))

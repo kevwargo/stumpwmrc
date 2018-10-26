@@ -107,6 +107,12 @@
 (define-window-match android-studio (w "/mnt/develop/sdk/android-studio/bin/studio.sh")
   (classed-p w "jetbrains-studio"))
 
+(define-window-match lyx-cheat-sheet (w "xterm -e less /mnt/other/info/dox/notes/lyx/cheat-sheet.txt" t)
+  (command-matches-p w "xterm -e less /mnt/other/info/dox/notes/lyx/cheat-sheet.txt "))
+
+(define-window-match lyx-edit-cheat-sheet (w "xterm -e emacsclient -nw -a '' /mnt/other/info/dox/notes/lyx/cheat-sheet.txt" t)
+  (command-matches-p w "xterm -e emacsclient -nw -a '' /mnt/other/info/dox/notes/lyx/cheat-sheet.txt "))
+
 (define-key *top-map* (kbd "H-f") "select-window-by-match CHROME")
 (define-key *top-map* (kbd "H-F") "select-window-by-match FIREFOX")
 (define-key *top-map* (kbd "H-e") "select-window-by-match EMACS")
@@ -118,6 +124,8 @@
 (define-key *top-map* (kbd "H-g") "select-window-by-match GWENVIEW")
 (define-key *top-map* (kbd "H-i") "select-window-by-match IMV")
 (define-key *top-map* (kbd "H-s") "select-window-by-match LYX")
+(define-key *top-map* (kbd "H-S") "select-window-by-match LYX-CHEAT-SHEET")
+(define-key *top-map* (kbd "M-H-l") "select-window-by-match LYX-EDIT-CHEAT-SHEET")
 (define-key *top-map* (kbd "H-A") "select-window-by-match ANDROID-STUDIO")
 (define-key *top-map* (kbd "H-D") "select-window-by-match MOCP")
 (define-key *top-map* (kbd "H-x") "select-window-by-match HTOP")

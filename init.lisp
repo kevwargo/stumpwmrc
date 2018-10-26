@@ -4,6 +4,7 @@
 
 (defparameter *stumpwmrc* *load-truename*)
 (defun in-stumpwmrc (path)
-  (namestring (merge-pathnames path *stumpwmrc*)))
+  (namestring (merge-pathnames path
+                               (directory-namestring *stumpwmrc*))))
 
 (run-shell-command "xset b off")

@@ -8,3 +8,9 @@
              (concat "~2,'0d-~2,'0d-~2,'0d ~2,'0d:~2,'0d:~2,'0d " fmt "~%")
              y m d h min s
              args))))
+
+(defmacro quicklog-safe (fmt &rest args)
+  `(handler-case
+       (quicklog ,fmt ,@args)
+     (error (c)
+       (quicklog "Condition in quicklog: ~A" c))))

@@ -3,7 +3,9 @@
 (require 'cl-ppcre)
 
 (let ((klipper-log (data-dir-file "klipper" "log")))
-  (run-shell-command (format nil "/var/tmp/portage/kde-plasma/plasma-workspace-5.12.3/work/plasma-workspace-5.12.3_build/klipper/klipper >> ~A 2>&1" klipper-log)))
+  (run-shell-command (format nil "~A >> ~A 2>&1"
+                             (in-stumpwmrc "plasma-workspace-build/klipper/klipper")
+                             klipper-log)))
 
 (defun run-prog-collect-lines (prog &rest opts &key args wait &allow-other-keys)
   (remf opts :args)

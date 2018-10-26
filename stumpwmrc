@@ -17,4 +17,5 @@
 (load (merge-pathnames "fonts.lisp"            *load-truename*))
 (load (merge-pathnames "brightness.lisp"       *load-truename*))
 (load (merge-pathnames "xmodmap/xmodmap.lisp"  *load-truename*))
+(load (merge-pathnames "debug.lisp"            *load-truename*))
 

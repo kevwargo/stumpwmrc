@@ -2,3 +2,7 @@
 	path = konsole
 	url = git@github.com:kevwargo/konsole
     branch = kevwargo
+[submodule "plasma-workspace"]
+	path = plasma-workspace
+	url = https://github.com/kevwargo/plasma-workspace.git
+	branch = kevwargo

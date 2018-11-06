@@ -65,7 +65,7 @@
 (define-window-match konsole (w (in-stumpwmrc "konsole.sh"))
   (classed-p w "konsole"))
 (define-window-match krusader (w "krusader")
-  (classed-p w "Krusader"))
+  (classed-p w "krusader"))
 (define-window-match wireshark (w "sudo wireshark")
   (classed-p w "Wireshark"))
 (define-window-match conky (w "conky" t)
@@ -86,6 +86,9 @@
 
 (define-window-match dbeaver (w "/mnt/develop/soft/installed/dbeaver/dbeaver")
   (classed-p w "DBeaver"))
+
+(define-window-match arandr (w "arandr" t)
+  (classed-p w "Arandr"))
 
 (defun command-matches-p (w cmd)
   (string= (concatenate 'string
@@ -131,3 +134,4 @@
 (define-key *top-map* (kbd "H-x") "select-window-by-match HTOP")
 (define-key *top-map* (kbd "H-R") "select-window-by-match RICOH-EMULATOR")
 (define-key *top-map* (kbd "H-b") "select-window-by-match DBEAVER")
+(define-key *top-map* (kbd "H-q") "select-window-by-match ARANDR")

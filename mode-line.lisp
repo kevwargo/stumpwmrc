@@ -49,11 +49,27 @@
                 (if (zerop ac-online) :reset "#106020")
                 "red")
             capacity)))
-  
+
+(defun mode-line-temperature (ml)
+  (declare (ignore ml))
+  (let ((max-temp 0)
+        (max-temp-item ""))
+    (mapcar (lambda (line)
+              (multiple-value-bind (match groups)
+                  (cl-ppcre:scan-to-strings "^([^:]+):\\s*\\+([0-9]+)(\\.[0-9]+)?°C" line)
+                (if match
+                    (let ((temp (parse-integer (svref groups 1)))
+                          (item (svref groups 0)))
+                      (if (> temp max-temp)
+                          (setq max-temp temp
+                                max-temp-item item))))))
+            (run-prog-collect-lines "sensors" :search t :wait t))
+    (format nil "~A: ~D°C" max-temp-item max-temp)))
+
 
 (setf *time-modeline-string* "%Y-%m-%d %H:%M:%S")
 (setf *screen-mode-line-format*
-      (list "%d %H %B"))
+      (list "%d %H %B %T"))
 (setf *mode-line-position* :bottom)
 (setf *mode-line-border-width* 10)
 (setf *mode-line-border-color* "Gray20")
@@ -65,6 +81,7 @@
 (add-screen-mode-line-formatter #\A 'amixer-get-master-volume)
 (add-screen-mode-line-formatter #\H 'mode-line-head-show)
 (add-screen-mode-line-formatter #\B 'mode-line-battery)
+(add-screen-mode-line-formatter #\T 'mode-line-temperature)
 
 
 (define-key *root-map* (kbd "m") "mode-line-all-heads-on")

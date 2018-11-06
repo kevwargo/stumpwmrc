@@ -19,20 +19,6 @@
          :error :output)))
 
 
-(defun run-prog-collect-lines (prog &rest opts &key args wait &allow-other-keys)
-  (remf opts :args)
-  (remf opts :wait)
-  (let ((proc (apply #'sb-ext:run-program prog args
-                     :output :stream
-                     :wait nil
-                     opts)))
-    (prog1
-        (loop with line
-           while (setq line
-                       (read-line (sb-ext:process-output proc) nil nil))
-           collect line)
-      (if wait (sb-ext:process-wait proc)))))
-
 (defun klipper-qdbus-cmd (args &optional ignore-output)
   (apply (if ignore-output
              #'run-prog
@@ -61,8 +47,8 @@
                              :content content
                              :display content-display)))
           (klipper-qdbus-cmd (list "historySlice"
-                             (format nil "~@[~a~]" from)
-                             (format nil "~d" count)))))
+                                   (format nil "~@[~a~]" from)
+                                   (format nil "~d" count)))))
 
 
 (defclass klipper-menu (single-menu)
@@ -84,6 +70,8 @@
   (let ((m (make-sparse-keymap)))
     (define-key m (kbd "Left") 'klipper-menu-shift-left)
     (define-key m (kbd "Right") 'klipper-menu-shift-right)
+    (define-key m (kbd "Home") 'klipper-menu-shift-home)
+    (define-key m (kbd "End") 'klipper-menu-shift-end)
     m))
 
 
@@ -93,19 +81,42 @@
       menu
     (push *klipper-menu-map* keymap)))
 
-(defmethod klipper-menu-shift-left ((menu klipper-menu))
+(defmethod klipper-menu-selected-item ((menu klipper-menu))
   (with-slots (selected table)
       menu
-    (shift-klipper-item-left (nth selected table))))
+    (cadr (nth selected table))))
+
+(defmethod klipper-menu-shift-left ((menu klipper-menu))
+  (with-slots (shift)
+      (klipper-menu-selected-item menu)
+    (setf shift (1- shift))
+    (if (< shift 0)
+        (setf shift 0))))
 
 (defmethod klipper-menu-shift-right ((menu klipper-menu))
-  (with-slots (selected table)
-      menu
-    (shift-klipper-item-right (nth selected table))))
+  (with-slots (shift (text display))
+      (klipper-menu-selected-item menu)
+    (setf shift (1+ shift))
+    (setf shift (min shift
+                     (max (- (length text)
+                             (klipper-menu-item-width menu))
+                          0)))))
+
+(defmethod klipper-menu-shift-home ((menu klipper-menu))
+  (with-slots (shift)
+      (klipper-menu-selected-item menu)
+    (setf shift 0)))
+
+(defmethod klipper-menu-shift-end ((menu klipper-menu))
+  (with-slots (shift (text display))
+      (klipper-menu-selected-item menu)
+    (setf shift (max (- (length text)
+                        (klipper-menu-item-width menu))
+                     0))))
 
 (defmethod get-menu-items ((menu klipper-menu))
   (mapcar (lambda (item)
-            (get-klipper-item-text item menu))
+            (get-klipper-item-text (cadr item) menu))
           (subseq (menu-table menu)
                   (menu-view-start menu) (menu-view-end menu))))
 
@@ -115,7 +126,9 @@
     (and (/= value selected)
          (>= selected 0)
          (< selected (length table))
-         (setf (slot-value (nth selected table) 'shift) 0))
+         (setf (slot-value (cadr (nth selected table))
+                           'shift)
+               0))
     (setf selected value)))
 
 
@@ -125,31 +138,21 @@
     (subseq text shift (min (length text)
                             (+ shift (klipper-menu-item-width menu))))))
 
-(defmethod shift-klipper-item-left ((item klipper-item) &optional (amount 1))
-  (with-slots (shift)
-      item
-    (setf shift (- shift amount))
-    (if (< shift 0)
-        (setf shift 0))))
-
-(defmethod shift-klipper-item-right ((item klipper-item) &optional (amount 1))
-  (with-slots ((text display) shift)
-      item
-    (setf shift (+ shift amount))
-    (if (> shift (1- (length text)))
-        (setf shift (1- (length text))))))
-
-
 (defun klipper-match (item-string item-object user-input)
   t)
 
+(defun klipper-menu-table (items)
+  (mapcar (lambda (item)
+            (list nil item))
+          items))
 
 (defcommand klipper-popup () ()
   (let ((*menu-maximum-height* 20))
     (handler-case
         (let ((item (run-menu (current-screen)
                               (make-instance 'klipper-menu
-                                             :table (klipper-history -1)
+                                             :table (klipper-menu-table
+                                                     (klipper-history -1))
                                              :item-width 60
                                              :selected 0
                                              :prompt "Klipper contents:"
@@ -158,7 +161,7 @@
                                              :filter-pred #'klipper-match))))
           (if item
               (klipper-qdbus-cmd (list "moveToTop"
-                                       (klipper-item-uuid item))
+                                       (klipper-item-uuid (cadr item)))
                                  t)))
       (error (c)
         (message-no-timeout "Error in klipper-popup: ~A" c)))))
